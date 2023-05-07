@@ -4,12 +4,22 @@ jobs:
   check-python-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-python@v4
-      - run: python --version
+      - name: Setup python
+        uses: actions/setup-python@v4
+
+      - name: Check python version
+        run: python --version
   test-with-pylint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-      - run: pip install -r requirements.txt
-      - run: pylint app.py --disable=C0114,C0116
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+
+      - name: Install packages
+        run: pip install -r requirements.txt
+        
+      - name: Lint code with Pylint
+        run: pylint app.py --disable=C0114,C0116
